@@ -5,6 +5,7 @@
   <title>Ember Starter Kit</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.js"></script>
   <link rel="stylesheet" href="css/style.css">
   
 </head>
@@ -14,12 +15,12 @@
       <div class="navbar-inner">
         <a class="brand"href="#">Bloggr</a>
         <ul class="nav">
-          <li><a href="#">Posts</a></li>
-          <li><a href="#">About</a></li>
+          <li> {{#link-to 'posts'}}Posts{{/link-to}}</li>
+          <li> {{#link-to 'about'}}About{{/link-to}}</li>
         </ul>
       </div>
     </div>
-    
+
     {{outlet}}
   </script>
 
@@ -33,6 +34,38 @@
 
 
   </script>
+
+  <script type="text/x-handlebars" id="posts">
+    {{#each}}
+      {{#link-to 'post' this}}
+      <h4>{{title}}</h4>
+      {{/link-to}}
+    {{/each}}
+    <div class="post">
+    {{outlet}}
+    </div>
+  </script>
+
+   <script type="text/x-handlebars" id="post">
+   {{#if isEditing}}
+      {{partial 'post/edit'}}
+      <button {{action 'doneEditing'}}>Done</button>
+      {{else}}
+      <button {{action 'edit'}}>Edit<button>
+    {{/if}}
+    <h1>{{title}}</h1> <p>{{format-date starts_at}}</p>
+      <h2>{{description}}</h2>
+       <img {{bind-attr src=thumbnail_url}}>
+   
+  </script>
+
+  <script type="text/x-handlebars" id="post/_edit">
+  <p>{{input type="test" value=title}}</p>
+  <p>{{input type="test" value=description}}</p>
+
+   
+  </script>
+
 
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-v2.0.0.js"></script>

@@ -2,3 +2,13 @@
 .ember-application {
     margin: 20px;
 }
+
+
+.post{
+position: absolute;
+top: 64px;
+width: 50%;
+left: 43%;
+
+
+}
